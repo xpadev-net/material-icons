@@ -4,6 +4,7 @@
   "description": "material-icons component for react without extra dependencies",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "commonjs",
   "scripts": {
     "build": "npx rimraf dist&&npm run build:ts&&npm run build:dts",
     "build:ts": "rollup -c rollup.config.mjs",
@@ -17,6 +18,7 @@
     "format": "prettier --write \"src/**/*.{tsx,ts,js,json,css,scss}\"",
     "lint": "npm run eslint&&npm run check-types",
     "lint:fix": "npm run format&&npm run eslint:fix&&npm run check-types",
+    "update-icons": "ts-node --esm -r tsconfig-paths/register src/utils/update.ts",
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -78,6 +80,7 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-typescript-paths": "^1.4.0",
     "storybook": "^7.0.26",
+    "tsconfig-paths": "^4.2.0",
     "tslib": "^2.6.0",
     "typedoc": "^0.24.8",
     "typedoc-plugin-missing-exports": "^1.0.0",
