@@ -1,14 +1,17 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 import { IconProps } from "@/@types/IconProps";
 
+type props = {
+  children: ReactNode;
+} & IconProps;
 export const BaseSvg = ({
   children,
   className,
   color,
   style,
   ...props
-}: IconProps) => {
+}: props) => {
   return (
     <svg
       width="24"
