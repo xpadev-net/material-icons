@@ -11,7 +11,7 @@
     "build:dts": "rollup -c rollup.config.dts.mjs",
     "watch": "rollup -c rollup.config.mjs -w",
     "typedoc": "typedoc --entryPointStrategy Expand --out ./docs/type/ ./src/",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "exit 1",
     "check-types": "npx tsc --noEmit",
     "eslint": "eslint .",
     "eslint:fix": "eslint . --fix",
@@ -22,8 +22,7 @@
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "publish:all": "cd dist/icons&&pnpm publish&&cd ../symbols&&pnpm publish",
-    "prepublish": "exit 1"
+    "publish:all": "cd dist/icons&&pnpm publish&&cd ../symbols&&pnpm publish"
   },
   "repository": {
     "type": "git",
