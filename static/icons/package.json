@@ -1,0 +1,20 @@
+{
+  "name": "@xpadev-net/material-icons",
+  "version": "[version]",
+  "description": "material-icons component for react without extra dependencies",
+  "types": "./MaterialIcons.d.ts",
+  "exports": {
+    "import": "./MaterialIcons.mjs",
+    "require": "./MaterialIcons.js",
+    "node": "./MaterialIcons.mjs",
+    "default": "./MaterialIcons.js"
+  },
+  "files": [
+    "./MaterialIcons.js",
+    "./MaterialIcons.mjs",
+    "./MaterialIcons.d.ts"
+  ],
+  "dependencies": {
+    "react": "^18.2.0"
+  }
+}

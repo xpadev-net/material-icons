@@ -7,6 +7,7 @@ import { TManifest } from "@/@types/manifest";
 import { str2camel } from "@/utils/camelCase";
 import { saveIconFile } from "@/utils/fs";
 import { normalize } from "@/utils/normalize";
+import { uuid } from "@/utils/uuid";
 
 import { versions } from "./version";
 
@@ -43,16 +44,14 @@ const suffix: { [key in TFamily]: string } = {
 };
 
 const saveIcon = async (manifest: TManifest, icon: TIcon, family: TFamily) => {
-  const svg = (await fetchIcon(manifest, icon, family)).replace(
-    /<svg.*width="24">([\s\S]*)<\/svg>/,
-    "$1"
-  );
+  const svg = await fetchIcon(manifest, icon, family);
   const iconName = normalize(
     icon.name
       .split("_")
       .map((text) => str2camel(text))
       .join("") + suffix[family]
   );
+  const dirName = icon.name + suffix[family];
   const baseDir = path.join(
     __dirname,
     "../",
@@ -63,7 +62,7 @@ const saveIcon = async (manifest: TManifest, icon: TIcon, family: TFamily) => {
     fs.mkdirSync(baseDir);
   }
 
-  saveIconFile(baseDir, iconName, svg);
+  saveIconFile(baseDir, dirName, iconName, svg);
 };
 
 const fetchIcon = async (manifest: TManifest, icon: TIcon, family: TFamily) => {
@@ -72,5 +71,22 @@ const fetchIcon = async (manifest: TManifest, icon: TIcon, family: TFamily) => {
     ? `http://${manifest.host}/s/i/short-term/release/${snakedFamilyName}/${icon.name}/default/24px.svg`
     : `http://${manifest.host}/s/i/${snakedFamilyName}/${icon.name}/v${icon.version}/24px.svg`;
   const req = await fetch(url);
-  return await req.text();
+  let svg = (await req.text())
+    .replace(/<svg.*width="24">([\s\S]*)<\/svg>/, "$1")
+    .replace(/class=".*?"/gi, "")
+    .replace(/xlink:href/gi, "xlinkHref");
+  const classMatch = svg.match(/(?:id|class)="(.*?)"/gi);
+  if (classMatch) {
+    for (const item of classMatch) {
+      const id = RegExp(/(?:id|class)="(.*?)"/i).exec(item);
+      if (!id) continue;
+      svg = svg.replace(
+        RegExp(`/${id[1]}/gi`),
+        `__material_icons_${id[1]}_${uuid()}`
+      );
+    }
+  }
+  svg = svg.replace(/style="fill:none"/gi, `style={{fill:"none"}}`);
+
+  return svg;
 };

@@ -1,5 +1,5 @@
-import { TFamily } from "@/@types/family";
-import { TIcon } from "@/@types/icon";
+import { TFamily } from "./family";
+import { TIcon } from "./icon";
 
 export type TManifest = {
   host: string;

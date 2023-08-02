@@ -11,9 +11,9 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ["./tsconfig.eslint.json"]
   },
-  ignorePatterns: ["*.js"],
-  plugins: ["@typescript-eslint", "simple-import-sort", "jsdoc"],
-  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:@typescript-eslint/recommended-requiring-type-checking", "plugin:jsdoc/recommended-typescript-error", "plugin:storybook/recommended"],
+  ignorePatterns: ["*.js","**/assets/**/*.ts*"],
+  plugins: ["@typescript-eslint", "simple-import-sort"],
+  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:@typescript-eslint/recommended-requiring-type-checking", "plugin:storybook/recommended"],
   rules: {
     "@typescript-eslint/restrict-template-expressions": "off",
     "@typescript-eslint/unbound-method": "off",
@@ -23,7 +23,6 @@ module.exports = {
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "@typescript-eslint/typedef": "error",
-    "jsdoc/require-returns-check": "off",
     "@typescript-eslint/no-var-requires": "off"
-  }
+  },
 };

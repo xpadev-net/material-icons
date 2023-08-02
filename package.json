@@ -6,37 +6,39 @@
   "types": "dist/index.d.ts",
   "type": "commonjs",
   "scripts": {
-    "build": "npx rimraf dist&&npm run build:ts&&npm run build:dts",
-    "build:ts": "rollup -c rollup.config.mjs",
-    "build:dts": "npx copyfiles -u 2 src/@types/*.d.ts dist/dts/@types/&&node ./util/resolve-path-alias.js&&rollup -c rollup.config.dts.mjs",
+    "build": "npx rimraf dist&&npx copyfiles -u 1 ./static/**/*.json ./dist/&&node ./utils/replace-version.mjs&&npm run build:ts&&npm run build:dts",
+    "build:ts": "tsup",
+    "build:dts": "rollup -c rollup.config.dts.mjs",
     "watch": "rollup -c rollup.config.mjs -w",
     "typedoc": "typedoc --entryPointStrategy Expand --out ./docs/type/ ./src/",
     "prepublishOnly": "npm run build",
-    "check-types": "npx tsc --noEmit --jsx react",
-    "eslint": "eslint src/**/*.ts",
-    "eslint:fix": "eslint src/**/*.ts --fix",
+    "check-types": "npx tsc --noEmit",
+    "eslint": "eslint .",
+    "eslint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{tsx,ts,js,json,css,scss}\"",
     "lint": "npm run eslint&&npm run check-types",
     "lint:fix": "npm run format&&npm run eslint:fix&&npm run check-types",
     "update-icons": "ts-node --esm -r tsconfig-paths/register src/utils/update.ts",
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "publish:all": "cd dist/icons&&pnpm publish&&cd ../symbols&&pnpm publish",
+    "prepublish": "exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xpadev-net/designsystem-icons.git"
+    "url": "git+https://github.com/xpadev-net/material-icons.git"
   },
   "keywords": [],
   "author": "xpadev(xpadev.net)",
   "bugs": {
-    "url": "https://github.com/xpadev-net/designsystem-icons/issues"
+    "url": "https://github.com/xpadev-net/material-icons/issues"
   },
   "files": [
     "dist/index.js",
     "dist/index.d.ts"
   ],
-  "homepage": "https://xpadev-net.github.io/designsystem-icons/",
+  "homepage": "https://github.com/xpadev-net/material-icons/issues",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.22.8",
@@ -56,6 +58,7 @@
     "@storybook/react": "^7.0.26",
     "@storybook/react-vite": "^7.0.26",
     "@storybook/testing-library": "0.0.14-next.2",
+    "@swc/core": "^1.3.73",
     "@types/node": "^20.4.1",
     "@types/react": "^18.2.14",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
@@ -80,14 +83,16 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-typescript-paths": "^1.4.0",
     "storybook": "^7.0.26",
+    "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
     "tslib": "^2.6.0",
+    "tsup": "^7.2.0",
     "typedoc": "^0.24.8",
     "typedoc-plugin-missing-exports": "^1.0.0",
     "typescript": "^5.1.6",
     "vite": "^4.4.2"
   },
   "dependencies": {
-    "ts-node": "^10.9.1"
+    "react": "^18.2.0"
   }
 }

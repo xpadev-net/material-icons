@@ -1,4 +1,4 @@
-import { TFamily } from "@/@types/family";
+import { TFamily } from "./family";
 
 export type TIcon = {
   name: string;
