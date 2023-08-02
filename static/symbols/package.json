@@ -2,6 +2,7 @@
   "name": "@xpadev-net/material-symbols",
   "version": "[version]",
   "description": "material-symbols component for react without extra dependencies",
+  "main": "./MaterialSymbols.js",
   "types": "./MaterialSymbols.d.ts",
   "exports": {
     "import": "./MaterialSymbols.mjs",
