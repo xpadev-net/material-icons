@@ -1,6 +1,6 @@
 {
   "name": "@xpadev-net/material-icons",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "material-icons component for react without extra dependencies",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
