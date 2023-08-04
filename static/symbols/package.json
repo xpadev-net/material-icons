@@ -11,9 +11,8 @@
     "default": "./MaterialSymbols.js"
   },
   "files": [
-    "./MaterialSymbols.js",
-    "./MaterialSymbols.mjs",
-    "./MaterialSymbols.d.ts"
+    "./**/*.js",
+    "./**/*.d.ts"
   ],
   "dependencies": {
     "react": "^18.2.0"
