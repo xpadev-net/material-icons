@@ -1,1 +1,2 @@
-**/assets/**/*.tsx
+src/icons/*
+src/symbols/*

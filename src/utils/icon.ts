@@ -33,36 +33,40 @@ const isNeedToUpdate = (icon: TIcon, family: TFamily) => {
 };
 
 const suffix: { [key in TFamily]: string } = {
-  "Material Icons": "Filled",
-  "Material Icons Outlined": "Outlined",
-  "Material Icons Round": "Rounded",
-  "Material Icons Sharp": "Sharp",
-  "Material Icons Two Tone": "TwoTone",
-  "Material Symbols Outlined": "Outlined",
-  "Material Symbols Rounded": "Rounded",
-  "Material Symbols Sharp": "Sharp",
+  "Material Icons": "filled",
+  "Material Icons Outlined": "outlined",
+  "Material Icons Round": "rounded",
+  "Material Icons Sharp": "sharp",
+  "Material Icons Two Tone": "twotone",
+  "Material Symbols Outlined": "outlined",
+  "Material Symbols Rounded": "rounded",
+  "Material Symbols Sharp": "sharp",
 };
 
 const saveIcon = async (manifest: TManifest, icon: TIcon, family: TFamily) => {
   const svg = await fetchIcon(manifest, icon, family);
   const iconName = normalize(
-    icon.name
-      .split("_")
+    [...icon.name.split("_"), suffix[family]]
       .map((text) => str2camel(text))
-      .join("") + suffix[family]
+      .join("")
   );
-  const dirName = icon.name + suffix[family];
+  const slug = [...icon.name.split("_"), suffix[family]].join("-");
   const baseDir = path.join(
     __dirname,
     "../",
-    family.includes("Symbol") ? "symbols" : "icons",
-    "assets"
+    family.includes("Symbol") ? "symbols" : "icons"
   );
   if (!fs.existsSync(baseDir)) {
     fs.mkdirSync(baseDir);
   }
 
-  saveIconFile(baseDir, dirName, iconName, svg);
+  saveIconFile(
+    family.includes("Symbol") ? "MaterialSymbols.tsx" : "MaterialIcons.tsx",
+    baseDir,
+    slug,
+    iconName,
+    svg
+  );
 };
 
 const fetchIcon = async (manifest: TManifest, icon: TIcon, family: TFamily) => {

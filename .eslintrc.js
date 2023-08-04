@@ -11,7 +11,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ["./tsconfig.eslint.json"]
   },
-  ignorePatterns: ["*.js","**/assets/**/*.ts*"],
+  ignorePatterns: ["*.js","**/symbols/*.ts*","**/icons/*.ts*"],
   plugins: ["@typescript-eslint", "simple-import-sort"],
   extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:@typescript-eslint/recommended-requiring-type-checking", "plugin:storybook/recommended"],
   rules: {
